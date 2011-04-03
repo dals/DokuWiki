@@ -1,0 +1,32 @@
+<html>
+<head>
+<script src="jquery.js"></script>
+<script src="xmlrpc.js"></script>
+</head>
+<body>
+DokuWiki Version <br />
+<input type="button" onClick="getVersion()" value="Get DokuWiki Version">
+</body>
+<script tyle="text/javascript">
+function getVersion() {
+
+var xml = new XMLRPCMessage("dokuwiki.getVersion");
+//xml.addParameter("param1");
+//xml.addParameter("param2");
+
+$.ajax({
+   url: "http://localhost/dokuwiki/lib/exe/xmlrpc.php",
+   //PATH TO DOUWIKI INSTALL
+   //use PHP or JSONP for cross-domain wikis
+   data: xml.xml(),
+   contentType:"text/xml",
+   type:"post",
+   success: function(msg){
+     var version = $(msg).find('string').text();
+	 alert(version);
+   }
+
+});
+}
+</script>
+</html>
